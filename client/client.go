@@ -68,7 +68,7 @@ func (c *Client[t]) SetRequestBody(body types.ReqBody) *Client[t] {
 }
 
 func (c *Client[t]) SetResponseBody(body []t) *Client[t] {
-	c.ResponseBody = body
+	c.ResponseBody = append(c.ResponseBody, body...)
 	return c
 }
 
