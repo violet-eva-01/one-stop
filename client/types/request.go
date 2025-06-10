@@ -13,7 +13,7 @@ type ReqBody struct {
 	Controls         []string `json:"controls,omitempty"`
 	Filters          []Filter `json:"filters,omitempty"`
 	SortId           string   `json:"sortId,omitempty"`
-	IsAsc            bool     `json:"isAsc,omitempty"`
+	Asc              bool     `json:"isAsc,omitempty"`
 	NotGetTotal      bool     `json:"notGetTotal,omitempty"`
 	UseControlId     bool     `json:"useControlId,omitempty"`
 	GetSystemControl bool     `json:"getSystemControl,omitempty"`
@@ -78,22 +78,22 @@ func (req *ReqBody) SetSortId(sortId string) *ReqBody {
 	return req
 }
 
-func (req *ReqBody) SetIsAsc(isAsc bool) *ReqBody {
-	req.IsAsc = isAsc
+func (req *ReqBody) IsAsc() *ReqBody {
+	req.Asc = true
 	return req
 }
 
-func (req *ReqBody) SetNotGetTotal(notGetTotal bool) *ReqBody {
-	req.NotGetTotal = notGetTotal
+func (req *ReqBody) IsSetNotGetTotal() *ReqBody {
+	req.NotGetTotal = true
 	return req
 }
 
-func (req *ReqBody) SetUseControlId(useControlId bool) *ReqBody {
-	req.UseControlId = useControlId
+func (req *ReqBody) IsSetUseControlId() *ReqBody {
+	req.UseControlId = true
 	return req
 }
 
-func (req *ReqBody) SetGetSystemControl(getSystemControl bool) *ReqBody {
-	req.GetSystemControl = getSystemControl
+func (req *ReqBody) IsGetSystemControl() *ReqBody {
+	req.GetSystemControl = true
 	return req
 }
