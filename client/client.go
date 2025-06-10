@@ -20,7 +20,7 @@ type Client[t types.T] struct {
 	Proxy        *url.URL
 	Size         int
 	Headers      map[string]string
-	RequestBody  types.ReqBody
+	RequestBody  *types.ReqBody
 	ResponseBody []t
 }
 
@@ -62,7 +62,7 @@ func (c *Client[t]) SetHeaders(headers map[string]string) *Client[t] {
 	return c
 }
 
-func (c *Client[t]) SetRequestBody(body types.ReqBody) *Client[t] {
+func (c *Client[t]) SetRequestBody(body *types.ReqBody) *Client[t] {
 	c.RequestBody = body
 	return c
 }
