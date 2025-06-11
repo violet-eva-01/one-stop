@@ -79,18 +79,17 @@ func (c *Client[t]) NewRequest() (err error) {
 		reqBody *bytes.Buffer
 	)
 
-	if c.RequestBody.WorksheetId != "" {
-		var marshal []byte
-		if marshal, err = json.Marshal(c.RequestBody); err != nil {
-			return
-		}
-		reqBody = bytes.NewBuffer(marshal)
-	}
-
 	if c.Size != 0 {
 		c.RequestBody.SetPageSize(c.Size)
 		for i := 1; true; i++ {
 			c.RequestBody.SetPageIndex(i)
+			if c.RequestBody.WorksheetId != "" {
+				var marshal []byte
+				if marshal, err = json.Marshal(c.RequestBody); err != nil {
+					return
+				}
+				reqBody = bytes.NewBuffer(marshal)
+			}
 			if err = c.GetResponseBody(reqBody); err != nil {
 				return
 			}
