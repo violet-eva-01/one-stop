@@ -125,7 +125,14 @@ func (c *Client[t]) GetResponseBody(reqBody *bytes.Buffer) (err error) {
 		req.Header.Set(key, value)
 	}
 
-	if resp, err = (&http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(c.Proxy)}}).Do(req); err != nil {
+	var transport *http.Transport
+	if c.Proxy != nil {
+		transport = &http.Transport{Proxy: http.ProxyURL(c.Proxy)}
+	} else {
+		transport = &http.Transport{}
+	}
+
+	if resp, err = (&http.Client{Transport: transport}).Do(req); err != nil {
 		return
 	}
 
