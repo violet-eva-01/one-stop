@@ -48,12 +48,12 @@ func (c *Client[t]) SetProxy(proxy string) *Client[t] {
 	} else {
 		c.Proxy = parse
 	}
-	
+
 	return c
 }
 
 func (c *Client[t]) SetSize(size int) *Client[t] {
-	if c.Size != 0 {
+	if size != 0 {
 		c.Size = size
 	}
 	return c
@@ -153,6 +153,6 @@ func (c *Client[t]) GetResponseBody(reqBody *bytes.Buffer) (err error) {
 		return
 	}
 
-	c.ResponseBody = append(c.ResponseBody, respBody.Data.Rows...)
+	c.SetResponseBody(respBody.Data.Rows)
 	return
 }
