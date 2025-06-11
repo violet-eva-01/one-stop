@@ -16,7 +16,6 @@ import (
 type Client[t types.T] struct {
 	Method       string
 	Url          string
-	Path         string
 	Proxy        *url.URL
 	Size         int
 	Headers      map[string]string
@@ -38,22 +37,25 @@ func (c *Client[t]) SetUrl(url string) *Client[t] {
 	return c
 }
 
-func (c *Client[t]) SetPath(path string) *Client[t] {
-	c.Path = path
-	return c
-}
-
 func (c *Client[t]) SetProxy(proxy string) *Client[t] {
+	if proxy == "" {
+		c.Proxy = nil
+		return c
+	}
+
 	if parse, err := url.Parse(proxy); err != nil {
 		log.Fatal(err)
 	} else {
 		c.Proxy = parse
 	}
+	
 	return c
 }
 
 func (c *Client[t]) SetSize(size int) *Client[t] {
-	c.Size = size
+	if c.Size != 0 {
+		c.Size = size
+	}
 	return c
 }
 
